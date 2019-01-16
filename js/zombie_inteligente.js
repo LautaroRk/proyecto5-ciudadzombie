@@ -15,14 +15,14 @@ ZombieInteligente.prototype.mover = function(jugador = Jugador) {
     var distanciaEnX = Math.abs(this.x - jugador.x);
     var distanciaEnY = Math.abs(this.y - jugador.y);
 
-    //FALTA: pasar rango de alcance por parametro (ahora fijo en 200)
+    //FALTA: pasar rango visual por parametro (ahora fijo)
     if (distanciaEnX < 220 && distanciaEnY < 250) {
         
         if (distanciaEnX > distanciaEnY) {
             if (this.x > jugador.x) {
                 this.x -= this.velocidad;
                 this.sprite = 'imagenes/perro_izquierda.png';
-            } else {
+            } else if (this.x < jugador.x) {
                 this.x += this.velocidad;
                 this.sprite = 'imagenes/perro_derecha.png';
             }
@@ -30,10 +30,10 @@ ZombieInteligente.prototype.mover = function(jugador = Jugador) {
         if (distanciaEnY > distanciaEnX) {
             if (this.y > jugador.y) {
                 this.y -= this.velocidad;
-            } else {
+            } else if (this.y < jugador.y) {
                 this.y += this.velocidad;
             }
         }
-
+        
     }
 }

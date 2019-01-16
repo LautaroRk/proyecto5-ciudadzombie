@@ -4,6 +4,8 @@
 // 3) El jugador se queda trabado en X=450 Y=250 (no puede ir para arriba).
 //     '-> Buscar y comentar 'PARCHE PROVISORIO' para reactivar error 
 //     '-> Puede estar pasando en otras veredas
+// 4) Como agrego eventListeners a las imagenes del comienzo? Ver Juego.comenzar
+//     '-> El timeout tampoco funciona porque no reconoce al bucleprincipal como funcion
 
 /* El objeto Juego sera el encargado del control de todo el resto de los Objetos
 existentes.
@@ -119,7 +121,13 @@ Juego.iniciarRecursos = function() {
     'imagenes/cage_arriba.png',
     'imagenes/cage_derecha.png',
     'imagenes/cage_izquierda.png',
-    'imagenes/cage_grito.png'
+    'imagenes/cage_abajo2.png',
+    'imagenes/cage_arriba2.png',
+    'imagenes/cage_derecha2.png',
+    'imagenes/cage_izquierda2.png',
+    'imagenes/cage_grito.png',
+    'imagenes/Mensaje1.png',
+    'imagenes/Mensaje2.png'
   ]);
   Resources.onReady(this.comenzar.bind(Juego));
 };
@@ -132,12 +140,17 @@ Juego.obstaculos = function() {
 Juego.comenzar = function() {
   // Inicializar el canvas del juego
   Dibujante.inicializarCanvas(this.anchoCanvas, this.altoCanvas);
+  Dibujante.dibujarImagen('imagenes/Mensaje1.png', 0, 5, this.anchoCanvas, this.altoCanvas);
   /* El bucle principal del juego se llamara continuamente para actualizar
   los movimientos y el pintado de la pantalla. Sera el encargado de calcular los
   ataques, colisiones, etc*/
+
+  // setTimeout(this.buclePrincipal, 3000); NO FUNCA
+  // document.addEventListener("click", function() {
+  //   this.buclePrincipal();
+  // }); TAMPOCO
   this.buclePrincipal();
 };
-
 Juego.buclePrincipal = function() {
 
   // Con update se actualiza la logica del juego, tanto ataques como movimientos
@@ -147,6 +160,7 @@ Juego.buclePrincipal = function() {
   // Esto es una forma de llamar a la funcion Juego.buclePrincipal() repetidas veces
   window.requestAnimationFrame(this.buclePrincipal.bind(this));
 };
+
 
 Juego.update = function() {
   this.calcularAtaques();
@@ -162,25 +176,41 @@ Juego.capturarMovimiento = function(tecla) {
   // El movimiento esta determinado por la velocidad del jugador
   if (tecla == 'izq') {
     movX = -velocidad;
-    Jugador.sprite = 'imagenes/cage_izquierda.png';
+    if (Jugador.sprite == 'imagenes/cage_izquierda.png'){
+      Jugador.sprite = 'imagenes/cage_izquierda2.png';
+    } else {
+      Jugador.sprite = 'imagenes/cage_izquierda.png';
+    }
     Jugador.ancho = 30;
     Jugador.alto = 15;
   }
   if (tecla == 'arriba') {
     movY = -velocidad;
-    Jugador.sprite = 'imagenes/cage_arriba.png';
+    if (Jugador.sprite == 'imagenes/cage_arriba.png'){
+      Jugador.sprite = 'imagenes/cage_arriba2.png';
+    } else {
+      Jugador.sprite = 'imagenes/cage_arriba.png';
+    }
     Jugador.ancho = 15;
     Jugador.alto = 30;
   }
   if (tecla == 'der') {
     movX = velocidad;
-    Jugador.sprite = 'imagenes/cage_derecha.png';
+    if (Jugador.sprite == 'imagenes/cage_derecha.png'){
+      Jugador.sprite = 'imagenes/cage_derecha2.png';
+    } else {
+      Jugador.sprite = 'imagenes/cage_derecha.png';
+    }
     Jugador.ancho = 30;
     Jugador.alto = 15;
   }
   if (tecla == 'abajo') {
     movY = velocidad;
-    Jugador.sprite = 'imagenes/cage_abajo.png';
+    if (Jugador.sprite == 'imagenes/cage_abajo.png'){
+      Jugador.sprite = 'imagenes/cage_abajo2.png';
+    } else {
+      Jugador.sprite = 'imagenes/cage_abajo.png';
+    }
     Jugador.ancho = 15;
     Jugador.alto = 30;
   }
