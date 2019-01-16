@@ -16,15 +16,18 @@ ZombieInteligente.prototype.mover = function(jugador = Jugador) {
     var distanciaEnY = Math.abs(this.y - jugador.y);
 
     //FALTA: pasar rango de alcance por parametro (ahora fijo en 200)
-    if (distanciaEnX < 200 && distanciaEnY < 250) {
+    if (distanciaEnX < 220 && distanciaEnY < 250) {
         
         if (distanciaEnX > distanciaEnY) {
             if (this.x > jugador.x) {
                 this.x -= this.velocidad;
+                this.sprite = 'imagenes/perro_izquierda.png';
             } else {
                 this.x += this.velocidad;
+                this.sprite = 'imagenes/perro_derecha.png';
             }
-        } else {
+        } 
+        if (distanciaEnY > distanciaEnX) {
             if (this.y > jugador.y) {
                 this.y -= this.velocidad;
             } else {
@@ -32,16 +35,5 @@ ZombieInteligente.prototype.mover = function(jugador = Jugador) {
             }
         }
 
-    }
-
-    /* En esta parte lo que hacemos es invertir la direccion horizontal si
-    toca uno de sus limites, modificando su velocidad. Si multiplicamos por -1 la
-    velocidad lo que estamos haciendo es invertir su direccion.*/
-    if ((this.x < this.rangoMov.desdeX) || (this.x > this.rangoMov.hastaX)){
-        this.velocidad *= -1;
-    }
-    // Si sobrepasa el rangoY, lo manda al centro entre ambos rangos
-    if ((this.y < this.rangoMov.desdeY) || (this.y > this.rangoMov.hastaY)) {
-        this.y = this.rangoMov.desdeY + (this.rangoMov.hastaY - this.rangoMov.desdeY)/2;
     }
 }

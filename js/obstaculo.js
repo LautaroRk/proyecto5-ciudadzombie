@@ -14,6 +14,13 @@ var Obstaculo = function (sprite, x, y, ancho, alto, potencia) {
 }
 
 Obstaculo.prototype.chocar = function(jugador){
-  jugador.perderVidas(this.potencia);
-  this.potencia = 0;
+
+  if (this.potencia > 0) {
+    jugador.sprite = 'imagenes/cage_grito.png';
+    jugador.ancho = 30;
+    jugador.alto = 30;
+    jugador.perderVidas(this.potencia);
+    this.potencia = 0;
+  }
+
 };

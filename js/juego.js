@@ -80,8 +80,8 @@ var Juego = {
     new ZombieCaminante('imagenes/zombie2.png', 70, 385, 12, 12, 0.25, {desdeX: 40, hastaX: 100, desdeY: 355, hastaY: 415}),
     new ZombieCaminante('imagenes/zombie3.png', 310, 220, 12, 12, 0.25, {desdeX: 260, hastaX: 360, desdeY: 170, hastaY: 270}),
     new ZombieCaminante('imagenes/zombie3.png', 310, 100, 12, 12, 0.25, {desdeX: 260, hastaX: 360, desdeY: 50, hastaY: 150}),
-    new ZombieInteligente('imagenes/perro.png', 300, 270, 35, 35, 0.7, {desdeX: 60, hastaX: 860, desdeY: 20, hastaY: 520}),
-    new ZombieInteligente('imagenes/perro.png', 700, 220, 35, 35, 0.7, {desdeX: 60, hastaX: 860, desdeY: 20, hastaY: 520}),
+    new ZombieInteligente('imagenes/perro_derecha.png', 300, 270, 35, 35, 0.8, {desdeX: 60, hastaX: 860, desdeY: 20, hastaY: 520}),
+    new ZombieInteligente('imagenes/perro_derecha.png', 700, 220, 35, 35, 0.8, {desdeX: 60, hastaX: 860, desdeY: 20, hastaY: 520}),
     new ZombieConductor('imagenes/tren_horizontal.png', 300, 322, 90, 30, 2.5, {desdeX: 50, hastaX: 860, desdeY: 322, hastaY: 322}, 'izquierda'),
     new ZombieConductor('imagenes/tren_vertical.png', 644, 300, 30, 90, 2, {desdeX: 644, hastaX: 644, desdeY: 20, hastaY: 520}, 'arriba'),
     new ZombieConductor('imagenes/tren_vertical.png', 678, 300, 30, 90, 2, {desdeX: 678, hastaX: 678, desdeY: 20, hastaY: 520}, 'abajo')
@@ -107,7 +107,8 @@ Juego.iniciarRecursos = function() {
     'imagenes/zombie2.png',
     'imagenes/zombie3.png',
     'imagenes/zombie4.png',
-    'imagenes/perro.png',
+    'imagenes/perro_derecha.png',
+    'imagenes/perro_izquierda.png',
     'imagenes/auto_rojo_abajo.png',
     'imagenes/auto_rojo_arriba.png',
     'imagenes/auto_rojo_derecha.png',
@@ -117,7 +118,8 @@ Juego.iniciarRecursos = function() {
     'imagenes/cage_abajo.png',
     'imagenes/cage_arriba.png',
     'imagenes/cage_derecha.png',
-    'imagenes/cage_izquierda.png'
+    'imagenes/cage_izquierda.png',
+    'imagenes/cage_grito.png'
   ]);
   Resources.onReady(this.comenzar.bind(Juego));
 };
@@ -192,7 +194,7 @@ Juego.capturarMovimiento = function(tecla) {
     if (!Juego.ganoJuego() && !Juego.terminoJuego()) {
       Jugador.mover(movX,movY);
       
-      //PARCHE PROVISORIO BUG
+      //BUG FIX PROVISORIO
       if (Jugador.y == 250) {
         Jugador.y = 245;
       }
@@ -279,7 +281,7 @@ Juego.chequearColisiones = function(x, y) {
   this.obstaculos().forEach(function(obstaculo) {
     if (this.intersecan(obstaculo, this.jugador, x, y)) {
       console.log(obstaculo);
-      console.log('X=' + Jugador.x + ' Y=' + Jugador.y)
+      console.log('Jugador:  X=' + Jugador.x + ' Y=' + Jugador.y);
       /*COMPLETAR, obstaculo debe chocar al jugador*/
       obstaculo.chocar(Jugador);
       puedeMoverse = false
