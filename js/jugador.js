@@ -10,6 +10,8 @@ var Jugador = {
   alto: 30,
   velocidad: 10,
   vidas: 5,
+  ronda: 0,
+
   // Hay que agregar lo que falte al jugador: movimientos, perdida de vidas,
   // y todo lo que haga falta para que cumpla con sus responsabilidades
   mover: function(x,y) {
@@ -21,6 +23,9 @@ var Jugador = {
   },
   mostrarCoordenadas: function() {
     console.log(`X: ${this.x} Y: ${this.y}`);
+  },
+  pasarDeRonda: function() {
+    this.ronda += 1;
   }
 
 }
